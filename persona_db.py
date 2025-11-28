@@ -18,21 +18,7 @@ from docopt import docopt
 from db import load_db, save_db
 from date_utils import icu_date
 from persona_match import match_persona
-
-# ---------------------------
-# Version Resolver
-# ---------------------------
-def resolve_version(existing_entries, persona):
-    # Extract existing versions for this persona on this date
-    versions = [
-        entry["version"]
-        for entry in existing_entries.values()
-        if entry["persona"] == persona
-    ]
-    if not versions:
-        return 1
-    return max(versions) + 1
-
+from versioning import resolve_version
 
 # ---------------------------
 # Main
