@@ -17,29 +17,7 @@ from docopt import docopt
 # --- New import replacing inline DB functions ---
 from db import load_db, save_db
 from date_utils import icu_date
-
-
-# ---------------------------
-# Persona Matching Scaffold
-# ---------------------------
-KNOWN_PERSONAS = {
-    "keyboard": ["keyboard", "km", "maestro"],
-    "chaos": ["chaos"],
-    "orminos": ["orminos"],
-    "techne": ["techne"],
-    "hephaiste": ["hephaiste"],
-    # Extend as needed
-}
-
-
-def match_persona(url: str):
-    url_lower = url.lower()
-    for persona, patterns in KNOWN_PERSONAS.items():
-        for p in patterns:
-            if p in url_lower:
-                return persona
-    return None  # unresolved → manual confirmation required
-
+from persona_match import match_persona
 
 # ---------------------------
 # Version Resolver
