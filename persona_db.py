@@ -14,19 +14,8 @@ import os
 from datetime import datetime
 from docopt import docopt
 
-DB_PATH = os.path.expanduser("~/persona_registry.json")
-
-
-def load_db():
-    if not os.path.exists(DB_PATH):
-        return {}
-    with open(DB_PATH, "r") as f:
-        return json.load(f)
-
-
-def save_db(db):
-    with open(DB_PATH, "w") as f:
-        json.dump(db, f, indent=2)
+# --- New import replacing inline DB functions ---
+from db import load_db, save_db
 
 
 def icu_date():
@@ -114,4 +103,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
