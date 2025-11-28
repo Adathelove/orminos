@@ -20,46 +20,20 @@ from date_utils import icu_date
 from persona_match import match_persona
 from versioning import resolve_version
 from cli_parser import parse_args
+from registry_ops import register_url
 
-# ---------------------------
-# Main
-# ---------------------------
 def main():
     args = parse_args()
-
     url = args["--url"]
 
-    db = load_db()
+    entry, existed = register_url(url)
 
-    # Existing?
-    if url in db:
+    if existed:
         print("URL already registered:")
-        print(json.dumps(db[url], indent=2))
-        return
+    else:
+        print("Registered:")
 
-    # Resolve persona
-    persona = match_persona(url)
-    if persona is None:
-        persona = input("Unknown persona. Enter persona name: ").strip()
-
-    # Resolve version
-    version = resolve_version(db, persona)
-
-    # Assign date
-    date_str = icu_date()
-
-    # Register
-    db[url] = {
-        "persona": persona,
-        "version": version,
-        "date": date_str
-    }
-
-    save_db(db)
-
-    print("Registered:")
-    print(json.dumps(db[url], indent=2))
-
+    print(json.dumps(entry, indent=2))
 
 if __name__ == "__main__":
     main()
