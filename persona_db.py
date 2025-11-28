@@ -19,12 +19,14 @@ from db import load_db, save_db
 from date_utils import icu_date
 from persona_match import match_persona
 from versioning import resolve_version
+from cli_parser import parse_args
 
 # ---------------------------
 # Main
 # ---------------------------
 def main():
-    args = docopt(__doc__)
+    args = parse_args()
+
     url = args["--url"]
 
     db = load_db()
