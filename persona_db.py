@@ -16,13 +16,7 @@ from docopt import docopt
 
 # --- New import replacing inline DB functions ---
 from db import load_db, save_db
-
-
-def icu_date():
-    # Format: EEE MMM d
-    # Python approximation: %a %b %-d
-    # (macOS supports %-d for no leading zero)
-    return datetime.now().strftime("%a %b %-d")
+from date_utils import icu_date
 
 
 # ---------------------------
