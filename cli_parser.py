@@ -3,12 +3,13 @@
 from docopt import docopt
 
 DOC = """
-Persona URL Registry
 Usage:
   registry.py --url=<u>
+  registry.py --today
 
 Options:
-  -u --url=<u>   URL to register
+  -u --url=<u>     URL to register
+  --today          Show all entries for today
 """
 
 def parse_args():

@@ -22,14 +22,17 @@ from versioning import resolve_version
 from cli_parser import parse_args
 from registry_ops import register_url
 from cli_output import print_registration_result
-
+from show_today import show_today
 
 def main():
     args = parse_args()
+
+    if args["--today"]:
+        show_today()
+        return
+
     url = args["--url"]
-
     entry, existed = register_url(url)
-
     print_registration_result(entry, existed)
 
 if __name__ == "__main__":
