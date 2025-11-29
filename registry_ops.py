@@ -6,6 +6,7 @@ from persona_match import match_persona
 from versioning import resolve_version
 from date_utils import icu_date
 from resolve_persona import resolve_persona_from_url
+from collision_check import check_same_day_persona
 
 def register_url(url: str):
     """
@@ -35,5 +36,8 @@ def register_url(url: str):
 
     db[url] = entry
     save_db(db)
+
+    # persona-aware collision check
+    check_same_day_persona(persona)
 
     return entry, False

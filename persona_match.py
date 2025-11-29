@@ -1,6 +1,7 @@
 # persona_match.py
 
 import os
+from persona_normalize import normalize
 
 PHYLE_PATH = os.path.join(os.path.dirname(__file__), "Phyle.txt")
 
@@ -21,22 +22,20 @@ def load_known_personas():
             line = line.strip()
             if not line:
                 continue
-
-            # raw line: e.g. "🔩 Orminos"
-            persona_key = line  # unnormalized
-            personas[persona_key] = [line]  # patterns list
+            persona_key = line            # keep original key (emoji + name)
+            p_norm = normalize(line)      # normalized search pattern
+            personas[persona_key] = [p_norm]
 
     return personas
 
 
 def match_persona(url: str):
     personas = load_known_personas()
-    url_lower = url.lower()
+    url_norm = normalize(url)
 
     for persona, patterns in personas.items():
         for p in patterns:
-            # still raw
-            if p.lower() in url_lower:
+            if p in url_norm:
                 return persona
 
     return None
