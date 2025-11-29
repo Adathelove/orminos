@@ -6,14 +6,11 @@ from .db_backend import RegistryBackend
 from .registry_ops_adapter import RegistryOpsJsonAdapter
 
 
-def get_active_backend() -> RegistryBackend:
-    """
-    The global backend selection point.
+from .meta import DAY_DIR_MODE
+from .daydir_backend import DayDirectoryBackend
+from .registry_ops_adapter import RegistryOpsJsonAdapter
 
-    Currently returns a compatibility adapter for the existing
-    registry_ops JSON behavior. This preserves all current behavior.
-
-    Later steps will replace this with a config-based or dynamic
-    backend selector without touching call sites.
-    """
+def get_active_backend():
+    if DAY_DIR_MODE:
+        return DayDirectoryBackend(Path("registry"))
     return RegistryOpsJsonAdapter()

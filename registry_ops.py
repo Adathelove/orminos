@@ -13,12 +13,13 @@ from open_link import open_link
 from backend.entrypoint import get_active_backend  # noqa: F401
 
 def load_registry():
-    """
-    Load registry data.
-    Now routed through the backend adapter (read-only A3.6).
-    """
     backend = get_active_backend()
-    return backend.load()
+    handle = RegistryHandle(backend.load())
+    return handle.unwrap()  # exact legacy behavior
+
+def save_registry(data):
+    backend = get_active_backend()
+    backend.save(data if isinstance(data, dict) else data.unwrap())
 
 def register_url(url: str):
     """
