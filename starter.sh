@@ -27,18 +27,16 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # --- File paths (repo-relative) ---
-COMPLETION_FILE="$SCRIPT_DIR/completions/persona_db-completion.bash"
+COMPLETION_FILE="$SCRIPT_DIR/completions/registry-completion.bash"
 VENV_ACTIVATE="$SCRIPT_DIR/venv/bin/activate"
 
 # --- Check existence ---
 if [[ ! -f "$COMPLETION_FILE" ]]; then
     echo "Missing: $COMPLETION_FILE"
-    exit 1
 fi
 
 if [[ ! -f "$VENV_ACTIVATE" ]]; then
     echo "Missing: $VENV_ACTIVATE"
-    exit 1
 fi
 
 # --- Source files ---
