@@ -1,18 +1,21 @@
+# daydir/pathing.py
+
 import os
 from settings import load_settings
 from logger import warn, abort, info
 
 from .naming import day_directory_name
+from .validate import validate_daydir_path
 
 
 def compute_daydir_path():
     """
-    Compute the *intended* absolute path for today's day-directory.
+    Compute the validated absolute day-directory path.
 
-    Rules for A4.1:
-    - If settings invalid → return None.
-    - No directory creation yet.
-    - No read/write yet.
+    Updated (A4.4):
+      - integrate validate_daydir_path
+      - return resolved Path or None
+      - no creation or I/O
     """
     cfg = load_settings()
     if cfg is None:
@@ -25,5 +28,12 @@ def compute_daydir_path():
         return None
 
     dirname = day_directory_name()
-    return os.path.join(root, dirname)
 
+    validated = validate_daydir_path(root, dirname)
+    if validated is None:
+        warn("Day-directory path validation failed.")
+        return None
+
+    # produce string or Path?
+    # A4.4 keeps return type consistent with prior behavior (string path).
+    return str(validated)
