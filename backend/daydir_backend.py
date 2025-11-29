@@ -8,7 +8,6 @@ from .db_backend import RegistryBackend
 from logger import warn, fail, exception, info
 from daydir.pathing import compute_daydir_path
 
-
 class DayDirectoryBackend(RegistryBackend):
     def __init__(self, root: Path):
         # root is still kept for future wiring,
@@ -51,7 +50,31 @@ class DayDirectoryBackend(RegistryBackend):
 
     def save(self, data):
         """
-        Still placeholder for A4.2.
-        A4.3+ will implement safe writes.
+        A4.3:
+        - Resolve daydir path.
+        - Ensure directory exists.
+        - Write registry.json atomically.
         """
-        pass
+        daydir = compute_daydir_path()
+        if daydir is None:
+            warn("DayDirectoryBackend.save: cannot compute day-directory path.")
+            return
+
+        # Ensure the day-directory exists (but not parents beyond storage_root).
+        try:
+            if not os.path.isdir(daydir):
+                os.makedirs(daydir, exist_ok=True)
+        except Exception as e:
+            exception(f"Failed to create day-directory {daydir}: {e}")
+            return
+
+        json_path = os.path.join(daydir, "registry.json")
+
+        # Attempt write
+        try:
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            exception(f"Failed to write {json_path}: {e}")
+            return
+
