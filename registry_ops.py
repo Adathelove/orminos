@@ -2,7 +2,7 @@
 
 import json
 from db import load_db, save_db
-from persona_match import match_persona
+from persona import match_persona
 from versioning import resolve_version
 from date_utils import icu_date
 from resolve_persona import resolve_persona_from_url

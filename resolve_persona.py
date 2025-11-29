@@ -1,6 +1,6 @@
 # resolve_persona.py
 
-from persona_match import match_persona
+from persona import match_persona
 
 def resolve_persona_from_url(url: str):
     """
