@@ -21,6 +21,8 @@ from persona_match import match_persona
 from versioning import resolve_version
 from cli_parser import parse_args
 from registry_ops import register_url
+from cli_output import print_registration_result
+
 
 def main():
     args = parse_args()
@@ -28,12 +30,7 @@ def main():
 
     entry, existed = register_url(url)
 
-    if existed:
-        print("URL already registered:")
-    else:
-        print("Registered:")
-
-    print(json.dumps(entry, indent=2))
+    print_registration_result(entry, existed)
 
 if __name__ == "__main__":
     main()
