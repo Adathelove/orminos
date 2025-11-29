@@ -7,6 +7,9 @@ from versioning import resolve_version
 from date_utils import icu_date
 from resolve_persona import resolve_persona_from_url
 from collision_check import check_same_day_persona
+from db_queries import find_persona_by_date
+from open_link import open_link
+
 
 def register_url(url: str):
     """
@@ -34,10 +37,21 @@ def register_url(url: str):
         "date": date_str
     }
 
+    # PRE-SAVE COLLISION CHECK
+    # Determine if adding this entry would cause a same-day collision
+    existing_matches = find_persona_by_date(persona, date_str)
+    will_collide = len(existing_matches) >= 1
+
+    if will_collide:
+        open_link(url)
+        resp = input("Same-day entry detected. Confirm registration? (y/N): ").strip().lower()
+        if resp != "y":
+            return entry, True  # treat as not saved
+
     db[url] = entry
     save_db(db)
 
     # persona-aware collision check
-    check_same_day_persona(persona)
+    check_same_day_persona(persona, url)
 
     return entry, False
