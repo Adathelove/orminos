@@ -5,7 +5,7 @@ from db import load_db, save_db
 from persona_match import match_persona
 from versioning import resolve_version
 from date_utils import icu_date
-
+from resolve_persona import resolve_persona_from_url
 
 def register_url(url: str):
     """
@@ -18,10 +18,7 @@ def register_url(url: str):
     if url in db:
         return db[url], True  # (entry, already_exists)
 
-    # Resolve persona
-    persona = match_persona(url)
-    if persona is None:
-        persona = input("Unknown persona. Enter persona name: ").strip()
+    persona = resolve_persona_from_url(url)
 
     # Resolve version
     version = resolve_version(db, persona)
