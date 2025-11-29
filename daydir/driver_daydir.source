@@ -1,0 +1,19 @@
+# driver_daydir.source
+# Usage:
+#   source daydir/driver_daydir.source
+#
+# Provides a safe local override for daydir testing.
+# Creates a relative test directory: daydir/daydir_test
+
+# Determine directory of this script
+#DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Path to safe test root
+#export DAYDIR_OVERRIDE_ROOT="$DIR/daydir_test"
+export DAYDIR_OVERRIDE_ROOT="daydir_test"
+
+# Create it if missing (safe)
+#mkdir -p "$DAYDIR_OVERRIDE_ROOT"
+
+echo "[driver_daydir.source] Using override root: $DAYDIR_OVERRIDE_ROOT"
+

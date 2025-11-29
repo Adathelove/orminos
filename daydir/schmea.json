@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "schema_version": <integer>,
+    "generated_at": <ISO-8601-string>,
+    "day": <string>  // matches YYYY-MM-DD-EEE
+  },
+  "entries": [
+    {
+      "url": <string>,
+      "persona": <string>,
+      "version": <integer>,
+      "registered_at": <string>  // "HH:MM:SS"
+    }
+  ]
+}

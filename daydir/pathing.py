@@ -12,11 +12,29 @@ def compute_daydir_path():
     """
     Compute the validated absolute day-directory path.
 
-    Updated (A4.4):
-      - integrate validate_daydir_path
-      - return resolved Path or None
-      - no creation or I/O
+    Override precedence:
+      1. DAYDIR_OVERRIDE_ROOT environment variable (if set)
+      2. settings.storage_root (if override not set)
     """
+
+    # --------------------------------------------
+    # 1. Override bypasses settings entirely
+    # --------------------------------------------
+    override = os.environ.get("DAYDIR_OVERRIDE_ROOT")
+    if override:
+        root = override
+        dirname = day_directory_name()
+
+        validated = validate_daydir_path(root, dirname)
+        if validated is None:
+            warn("Day-directory path validation failed (override root).")
+            return None
+
+        return str(validated)
+
+    # --------------------------------------------
+    # 2. Fallback: settings.json
+    # --------------------------------------------
     cfg = load_settings()
     if cfg is None:
         warn("Settings invalid — cannot compute day-directory path.")
@@ -34,6 +52,4 @@ def compute_daydir_path():
         warn("Day-directory path validation failed.")
         return None
 
-    # produce string or Path?
-    # A4.4 keeps return type consistent with prior behavior (string path).
     return str(validated)
