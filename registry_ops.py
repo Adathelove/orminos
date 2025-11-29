@@ -5,11 +5,10 @@ from db import load_db, save_db
 from persona import match_persona
 from versioning import resolve_version
 from date_utils import icu_date
-from resolve_persona import resolve_persona_from_url
+from persona.resolve import resolve_persona_from_url
 from collision_check import check_same_day_persona
 from db_queries import find_persona_by_date
 from open_link import open_link
-
 
 def register_url(url: str):
     """
