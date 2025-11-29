@@ -1,25 +1,27 @@
-_persona_db_completions() {
+# completions/registry-completion.bash
+
+_registry_completions() {
     local cur prev opts
     COMPREPLY=()
 
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    opts="--url -u --help -h"
+    opts="--url -u --today --select --help -h"
 
-    # Special handling for URL flags
     case "$prev" in
         --url|-u)
+            # URL arg, no completion
             return 0
             ;;
     esac
 
-    # If current word empty OR starts with "-", show all options
     if [[ -z "$cur" || "$cur" == -* ]]; then
         COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
         return 0
     fi
 }
 
-complete -F _persona_db_completions persona_db.py
-complete -F _persona_db_completions ./persona_db.py
+# Register completion for both invocation styles
+complete -F _registry_completions registry.py
+complete -F _registry_completions ./registry.py
