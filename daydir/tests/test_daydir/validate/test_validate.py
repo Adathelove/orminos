@@ -1,5 +1,3 @@
-# daydir/tests/test_validate.py
-
 from pathlib import Path
 from daydir.validate import validate_storage_root
 from logger import info, fail
@@ -37,6 +35,3 @@ def test_validate_storage_root_basic():
         fail(f"TEST: cleanup failed: {e}")
 
     info("TEST: validate_storage_root_basic complete.")
-
-if __name__ == "__main__":
-    test_validate_storage_root_basic()
