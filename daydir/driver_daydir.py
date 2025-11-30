@@ -27,22 +27,16 @@ USAGE = """
 DayDir Utility (internal module driver)
 
 Usage:
-  daydir path
-  daydir inspect
-  daydir mkdir
-  daydir init
-  daydir schema
+  daydir path [--root=DIR]
+  daydir inspect [--root=DIR]
+  daydir mkdir [--root=DIR]
+  daydir init [--root=DIR]
+  daydir schema [--root=DIR]
   daydir (-h | --help)
 
 Options:
-  -h --help     Show this screen.
-
-Examples:
-  python -m daydir.driver path
-  python -m daydir.driver inspect
-  python -m daydir.driver mkdir
-  python -m daydir.driver init
-  python -m daydir.driver schema
+  --root=DIR     Override DAYDIR_OVERRIDE_ROOT
+  -h --help      Show this screen.
 """
 
 

@@ -1,15 +1,31 @@
 {
-  "meta": {
-    "schema_version": <integer>,
-    "generated_at": <ISO-8601-string>,
-    "day": <string>  // matches YYYY-MM-DD-EEE
-  },
-  "entries": [
-    {
-      "url": <string>,
-      "persona": <string>,
-      "version": <integer>,
-      "registered_at": <string>  // "HH:MM:SS"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DayDir v1",
+  "type": "object",
+  "required": ["meta", "entries"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "generated_at", "day"],
+      "properties": {
+        "schema_version": { "type": "integer" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "day": { "type": "string" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "persona", "version", "registered_at"],
+        "properties": {
+          "url": { "type": "string" },
+          "persona": { "type": "string" },
+          "version": { "type": "integer" },
+          "registered_at": { "type": "string" }
+        }
+      }
     }
-  ]
+  }
 }
+
