@@ -1,6 +1,39 @@
 # Changelog
 
-## [0.2.0] - 2025-11-28
+## [0.3.0] - 2025-11-29
+
+### Features
+
+* Introduce full daydir driver CLI (path/inspect/mkdir/init/schema) (`5fc63aa`)
+* Add daydir naming (`YYYY-MM-DD-EEE`) (`72ec95a`)
+* Add daydir path computation scaffolds (`72ec95a`, `3e1c028`)
+* Add validation subsystem (storage_root, daydir name, combined path) (`9116071`, `ff1f4bf`)
+* Add daydir CLI override harness (`5fc63aa`)
+* Add completions for daydir driver (`5fc63aa`)
+* Add daydir schema draft (`5fc63aa`)
+* Add settings bootstrap and validation (`75520eb`)
+* Add logger subsystem with color-coded output (`db51f56`)
+* Add backend abstraction layer (`204834a`)
+* Add JSON backend + adapter scaffolds (`a3f563b`, `b3b9344`)
+* Add day-directory backend scaffolding and later read/load implementations (`72ec95a`, `2a6834e`, `1bb35d0`)
+* Add initial test scaffolding (pytest conftest, validate tests) (`ceb8311`, `ff1f4bf`)
+
+### Refactors
+
+* Integrate validate_daydir_path into pathing (`3e1c028`)
+* Restructure daydir pathing to override-first model (`5fc63aa`)
+* Move persona resolution logic into persona/ package (`4f8288c`, `c58dfbd`)
+* Update backend entrypoint to toggle daydir backend (`eb33f06`)
+* Rewire registry_ops to use backend load/save (`f951f2c`, `9116071`)
+* Split today logic and consolidate naming/pathing responsibilities (`3e1c028`)
+
+### Fixes
+
+* Fix CHANGELOG rewrite consistency (`95058e1`)
+* Improve validate_storage_root error handling (`9116071`)
+* Improve test cleanup logic (`ff1f4bf`)
+
+## [0.2.0] - 2025-11-28] - 2025-11-28
 
 ### Features
 
