@@ -28,6 +28,9 @@ class DayDirSettings:
     def return_settings_as_json(self):
         return json.dumps(self._data, indent=2)
 
+    def get_daydir_root(self):
+        return self._data.get("dayDirRoot")
+
     def _sanity_check(self):
         root = self._data.get("dayDirRoot", None)
 
@@ -42,4 +45,3 @@ class DayDirSettings:
 
         if not os.path.isdir(root):
             raise DayDirSettingsException(f"Invalid settings: dayDirRoot exists but is not a directory: {root}")
-

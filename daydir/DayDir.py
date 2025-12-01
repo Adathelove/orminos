@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from logger import info, fail
+from .DayDirSettings import DayDirSettings, DayDirSettingsException
 
 
 class DayDirError(Exception):
@@ -10,9 +11,16 @@ class DayDirError(Exception):
 
 
 class DayDir:
-    def __init__(self, root):
-        self.root = Path(root)
-        info(f"DayDir: received root = {self.root}")
+    def __init__(self, settings_file):
+        try:
+            self.settings = DayDirSettings(settings_file)
+        except DayDirSettingsException as e:
+            fail(f"DayDir: settings invalid → {e}")
+            raise DayDirError(f"Invalid settings: {e}")
+
+        self.root = Path(self.settings.get_daydir_root())
+        info(f"DayDir: settings loaded from {settings_file}")
+        info(f"DayDir: resolved root = {self.root}")
 
         self._sanity_check_root()
 

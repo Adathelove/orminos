@@ -20,11 +20,11 @@ USAGE = """
 DayDir Utility
 
 Usage:
-  daydir --root=DIR
+  daydir --file=FILE
   daydir (-h | --help)
 
 Options:
-  --root=DIR    Root directory for DayDir
+  --file=FILE   JSON settings file
   -h --help     Show this screen.
 """
 
@@ -34,20 +34,22 @@ def main(argv=None):
 
     args = docopt(USAGE, argv=argv)
 
-    root = args.get("--root")
-    if not root:
-        fail("Missing required --root")
+    settings_file = args.get("--file")
+    if not settings_file:
+        fail("Missing required --file")
         return -1
 
     # ---------------------------------------------------------
     # DayDir construction (clean failure, no stack trace)
     # ---------------------------------------------------------
     try:
-        dd = DayDir(root)
+        dd = DayDir(settings_file)
     except DayDirError as e:
         fail(f"DayDir construction failed: {e}")
         return -1   # <-- clean exit, no traceback
 
+    info(f"Settings file read: {os.path.abspath(settings_file)}")
+    info(dd.settings.return_settings_as_json())
     info("DayDir constructed successfully.")
     return 0
 
