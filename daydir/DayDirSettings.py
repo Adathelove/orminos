@@ -25,6 +25,9 @@ class DayDirSettings:
 
         self._sanity_check()
 
+    def return_settings_as_json(self):
+        return json.dumps(self._data, indent=2)
+
     def _sanity_check(self):
         root = self._data.get("dayDirRoot", None)
 

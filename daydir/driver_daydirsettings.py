@@ -48,8 +48,10 @@ def main(argv=None):
         fail(f"Settings load failed: {e}")
         return -1
 
-    info("Settings loaded successfully.")
-    return 0
+    info(f"Settings file read: {os.path.abspath(settings_file)}")
+    info(s.return_settings_as_json())
+    success("Settings loaded successfully.")
+    sys.exit(0)
 
 if __name__ == "__main__":
     sys.exit(main())
