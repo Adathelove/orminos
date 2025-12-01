@@ -6,6 +6,10 @@ Stabilize the DayDir backend into its first complete, validated, and documented 
 
 ## Step 1
 
+Step 1: Move all core DayDir behavior into DayDir.py as a clean, constructor-validated object.
+
+## Step 2
+
 Define and finalize the DayDir schema v1, including required fields and `schema_version`.
 
 - Review pathing.py, naming.py, and driver_daydir.py to ensure the basic code paths are correct:
@@ -17,7 +21,7 @@ Define and finalize the DayDir schema v1, including required fields and `schema_
 - Use test-driven development; schema rules and validation semantics are exercised through targeted tests.
 (Previous Step 2 validation requirements are now absorbed here.)
 
-## Step 2
+## Step 3
 
 Implement strict override-first pathing and validation rules for root, daydir names, and allowed directory creation.
 
@@ -25,6 +29,6 @@ Implement strict override-first pathing and validation rules for root, daydir na
 - File-existence validation test. (Implemented first.)
 - File-name/content rule validation. (Already satisfied by current naming rules.)
 
-## Step 3
+## Step 4
 
 Align DayDir backend behavior with the JSON backend to ensure identical load/save semantics and interface guarantees.
