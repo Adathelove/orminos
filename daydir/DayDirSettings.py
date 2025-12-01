@@ -29,18 +29,14 @@ class DayDirSettings:
         root = self._data.get("dayDirRoot", None)
 
         if root is None:
-            print("warn: Missing 'dayDirRoot' in settings.")
-            return
+            raise DayDirSettingsException(f"Invalid settings: Missing 'dayDirRoot' in settings.")
 
         if root == "":
-            print("warn: 'dayDirRoot' is empty.")
-            return
+            raise DayDirSettingsException(f"Invalid settings: 'dayDirRoot' is empty.")
 
         if not os.path.exists(root):
-            print(f"warn: dayDirRoot path does not exist: {root}")
-            return
+            raise DayDirSettingsException(f"Invalid settings: dayDirRoot path does not exist: {root}")
 
         if not os.path.isdir(root):
-            print(f"warn: dayDirRoot exists but is not a directory: {root}")
-            return
+            raise DayDirSettingsException(f"Invalid settings: dayDirRoot exists but is not a directory: {root}")
 
