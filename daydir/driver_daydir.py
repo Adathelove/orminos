@@ -20,8 +20,8 @@ USAGE = """
 DayDir Utility
 
 Usage:
-  daydir --file=FILE [--init | --createNewDay]
-  daydir (-h | --help)
+  ./driver_daydir --file=FILE [--init | --createNewDay]
+  ./driver_daydir (-h | --help)
 
 Options:
   --file=FILE       JSON settings file
