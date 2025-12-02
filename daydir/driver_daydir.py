@@ -44,14 +44,11 @@ def main(argv=None):
     do_init = args.get("--init")
     do_create = args.get("--createNewDay")
 
-    # ---------------------------------------------------------
-    # DayDir construction (clean failure, no stack trace)
-    # ---------------------------------------------------------
     try:
         dd = DayDir(settings_file)
     except DayDirError as e:
         fail(f"DayDir construction failed: {e}")
-        return -1   # <-- clean exit, no traceback
+        return -1
 
     info(f"Settings file read: {os.path.abspath(settings_file)}")
     info(dd.settings.return_settings_as_json())
