@@ -20,12 +20,14 @@ USAGE = """
 DayDir Utility
 
 Usage:
-  daydir --file=FILE
+  daydir --file=FILE [--init | --createNewDay]
   daydir (-h | --help)
 
 Options:
-  --file=FILE   JSON settings file
-  -h --help     Show this screen.
+  --file=FILE       JSON settings file
+  --init            Discover existing day directories
+  --createNewDay    Create a new day directory for today
+  -h --help         Show this screen.
 """
 
 def main(argv=None):
@@ -39,6 +41,9 @@ def main(argv=None):
         fail("Missing required --file")
         return -1
 
+    do_init = args.get("--init")
+    do_create = args.get("--createNewDay")
+
     # ---------------------------------------------------------
     # DayDir construction (clean failure, no stack trace)
     # ---------------------------------------------------------
@@ -50,6 +55,10 @@ def main(argv=None):
 
     info(f"Settings file read: {os.path.abspath(settings_file)}")
     info(dd.settings.return_settings_as_json())
+    if do_init:
+        dd.init()
+    if do_create:
+        dd.createNewDay()
     info("DayDir constructed successfully.")
     return 0
 
