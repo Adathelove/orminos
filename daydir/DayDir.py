@@ -91,5 +91,32 @@ class DayDir:
 
         return target
 
+    def createNewDayEntry(self):
+        """
+        Create a new JSON entry inside today's day directory.
+
+        The entry file is named with the same DAYDIR_TIME_FORMAT, plus .json.
+        If the file exists, it is left untouched and returned.
+        """
+        day_dir = self.createNewDay()
+        filename = f"{day_dir.name}.json"
+        json_path = day_dir / filename
+
+        if json_path.exists():
+            if json_path.is_file():
+                info(f"DayDir: day entry already exists → {json_path}")
+                return json_path
+            fail(f"DayDir: cannot create day entry, path is not a file → {json_path}")
+            raise DayDirError(f"Cannot create day entry; path is not a file: {json_path}")
+
+        try:
+            json_path.write_text("{}", encoding="utf-8")
+            info(f"DayDir: created day entry → {json_path}")
+        except Exception as e:
+            fail(f"DayDir: failed to create day entry → {e}")
+            raise DayDirError(f"Failed to create day entry: {e}")
+
+        return json_path
+
     def __repr__(self):
         return f"<DayDir root={self.root}>"

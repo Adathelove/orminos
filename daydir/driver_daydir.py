@@ -26,7 +26,7 @@ Usage:
 Options:
   --file=FILE       JSON settings file
   --init            Discover existing day directories
-  --createNewDay    Create a new day directory for today
+  --createNewDay    Create a new day directory and entry for today
   -h --help         Show this screen.
 """
 
@@ -55,7 +55,7 @@ def main(argv=None):
     if do_init:
         dd.init()
     if do_create:
-        dd.createNewDay()
+        dd.createNewDayEntry()
     info("DayDir constructed successfully.")
     return 0
 
